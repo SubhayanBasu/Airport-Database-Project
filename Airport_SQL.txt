@@ -1,0 +1,360 @@
+Create Table Airport (
+    AirportID int,
+    airportName VARCHAR(50),
+    city VARCHAR(25),
+    airportState VARCHAR(25),
+    country VARCHAR(25),
+    Primary Key(AirportID)
+);
+
+Create Table Terminal (
+    TerminalID int,
+    AirportID int,
+    TerminalName VARCHAR(50),
+    NumOfGates int,
+    NumOfSecurityGates int,
+    NumOfFlightsArrive int,
+    NumOfFlightsDepart int,
+    Primary Key(TerminalID),
+    FOREIGN KEY (AirportID) REFERENCES Airport(AirportID)
+);
+
+
+Create Table Gate (
+    GateNum int,
+    TerminalID int,
+    Primary Key(GateNum),
+    Foreign Key(TerminalID) REFERENCES Terminal(TerminalID)
+);
+
+Create Table Aircraft (
+    AircraftType VARCHAR(25),
+    capacity int,
+    Primary Key(AircraftType)
+);
+
+Create Table Flight (
+    FlightID int,
+    FlightCode VARCHAR(25),
+    AircraftType VARCHAR(25),
+    Frequency VARCHAR(25),
+    ArrivalTime VARCHAR(10),
+    DepartTime VARCHAR(10),
+    DepartAirportID int,
+    DestAirportID int,
+    GateNum int,
+    Primary Key(FlightID),
+    Foreign Key(AircraftType) REFERENCES Aircraft(AircraftType),
+    Foreign Key(DepartAirportID) REFERENCES Airport(AirportID),
+    Foreign Key(DestAirportID) REFERENCES Airport(AirportID),
+    Foreign Key(GateNum) REFERENCES Gate(GateNum)
+);
+
+Create Table AirLine (
+    AirlineID int,
+    AirlineName VARCHAR(25),
+    IATACode VARCHAR(5),
+    Address VARCHAR(50),
+    PhoneNumber VARCHAR(15),
+    City VARCHAR(25),
+    State_Province VARCHAR(25),
+    Country VARCHAR(25),
+    Status int,
+    Primary Key(AirlineID)
+);
+
+Create Table Employee (
+    EmployeeID VARCHAR(10),
+    Fname VARCHAR(25),
+    Lname VARCHAR(25),
+    DOB VARCHAR(25),
+    Occupation VARCHAR(25),
+    Salary int,
+    AirportID int,
+    Primary Key(EmployeeID),
+    Foreign Key(AirportID) REFERENCES Airport(AirportID)
+);
+
+Create Table Passenger (
+    PassportID VARCHAR(10),
+    Fname VARCHAR(25),
+    Lname VARCHAR(25),
+    Address VARCHAR(25),
+    Sex VARCHAR(1),
+    PhoneNumber VARCHAR(15),
+    FlightID int,
+    Primary Key(PassportID),
+    Foreign Key(FlightID) REFERENCES Flight(FlightID)
+);
+
+Create Table Ticket (
+    TicketID VARCHAR(10),
+    FlightID int,
+    PassportID VARCHAR(10),
+    Price int,
+    ticketClass VARCHAR(15),
+    SeatNum VARCHAR(4),
+    Primary Key(TicketID),
+    Foreign Key(FlightID) REFERENCES Flight(FlightID),
+    Foreign Key(PassportID) REFERENCES Passenger(PassportID)
+);
+
+Create Table Luggage (
+    LuggageID VARCHAR(10),
+    PassportID VARCHAR(10),
+    BaggageClaim int,
+    Primary Key(LuggageID),
+    Foreign Key(PassportID) REFERENCES Passenger(PassportID),
+    Foreign Key(BaggageClaim) REFERENCES Gate(GateNum)
+);
+
+
+insert into Airport (AirportID, airportName, city, airportState, country)
+Values (100001,'Biden International Airport','Wilmington','Delaware','USA');
+insert into Airport (AirportID, airportName, city, airportState, country)
+Values (100002,'Dallas Fort Worth International Airport','Dallas','Texas','USA');
+insert into Airport (AirportID, airportName, city, airportState, country)
+Values (100003,'Raleigh-Durham International Airport','Raleigh','North Carolina','USA');
+insert into Airport (AirportID, airportName, city, airportState, country)
+Values (100004,'Netaji Subash Chandra Bose Intl airport','Kolkata','West Bengal','India');
+insert into Airport (AirportID, airportName, city, airportState, country)
+Values (100005,'London Heathrow International Airport','London','Greater London','UK');
+insert into Airport (AirportID, airportName, city, airportState, country)
+Values (100006,'Dubai International Airport','Dubai','Dubai','UAE');
+insert into Airport (AirportID, airportName, city, airportState, country)
+Values (100007,'Charles de Gaulle Airport','Paris','Paris','France');
+insert into Airport (AirportID, airportName, city, airportState, country)
+Values (100008,'Seattle-Tacoma International Airport','Seattle','Washington','USA');
+insert into Airport (AirportID, airportName, city, airportState, country)
+Values (100009,'Bradley International Airport','Windsor Locks','Connecticut','USA');
+
+insert into Terminal(TerminalID, AirportID, TerminalName, NumOfGates, NumOfSecurityGates, NumOfFlightsArrive, NumOfFlightsDepart)
+VALUES (1,100001,'Terminal A',35,5,20,24);
+insert into Terminal(TerminalID, AirportID, TerminalName, NumOfGates, NumOfSecurityGates, NumOfFlightsArrive, NumOfFlightsDepart)
+VALUES (2,100001,'Terminal B',20,4,15,18);
+insert into Terminal(TerminalID, AirportID, TerminalName, NumOfGates, NumOfSecurityGates, NumOfFlightsArrive, NumOfFlightsDepart)
+VALUES (3,100001,'Terminal C',18,3,16,14);
+insert into Terminal(TerminalID, AirportID, TerminalName, NumOfGates, NumOfSecurityGates, NumOfFlightsArrive, NumOfFlightsDepart)
+VALUES (4,100001,'Terminal D',30,4,25,30);
+
+insert into Gate(GateNum, TerminalID)
+Values(1,1);
+insert into Gate(GateNum, TerminalID)
+Values(2,1);
+insert into Gate(GateNum, TerminalID)
+Values(3,1);
+insert into Gate(GateNum, TerminalID)
+Values(4,1);
+insert into Gate(GateNum, TerminalID)
+Values(5,1);
+insert into Gate(GateNum, TerminalID)
+Values(6,2);
+insert into Gate(GateNum, TerminalID)
+Values(7,2);
+insert into Gate(GateNum, TerminalID)
+Values(8,2);
+insert into Gate(GateNum, TerminalID)
+Values(9,2);
+insert into Gate(GateNum, TerminalID)
+Values(10,3);
+insert into Gate(GateNum, TerminalID)
+Values(11,3);
+insert into Gate(GateNum, TerminalID)
+Values(12,3);
+insert into Gate(GateNum, TerminalID)
+Values(13,3);
+insert into Gate(GateNum, TerminalID)
+Values(14,4);
+insert into Gate(GateNum, TerminalID)
+Values(15,4);
+insert into Gate(GateNum, TerminalID)
+Values(16,4);
+
+insert into Aircraft(AircraftType, capacity)
+Values('Airbus A320', 120);
+insert into Aircraft(AircraftType, capacity)
+Values('Boeing 737', 190);
+insert into Aircraft(AircraftType, capacity)
+Values('Airbus A380', 256);
+insert into Aircraft(AircraftType, capacity)
+Values('Boeing 777', 368);
+insert into Aircraft(AircraftType, capacity)
+Values('Boeing 747-200', 280);
+insert into Aircraft(AircraftType, capacity)
+Values('Airbus A321', 212);
+
+insert into Flight(FlightID, FlightCode, AircraftType, Frequency, ArrivalTime, DepartTime, DepartAirportID, DestAirportID, GateNum)
+VALUES (200001,'AA1001','Airbus A320','Daily','6:30 AM','7:15 AM',100001,100003,15);
+insert into Flight(FlightID, FlightCode, AircraftType, Frequency, ArrivalTime, DepartTime, DepartAirportID, DestAirportID, GateNum)
+VALUES (200002,'DL1001','Boeing 737','Daily','8:00 AM','8:45 AM',100001,100004,8);
+insert into Flight(FlightID, FlightCode, AircraftType, Frequency, ArrivalTime, DepartTime, DepartAirportID, DestAirportID, GateNum)
+VALUES (200003,'EK1001','Airbus A380','4 Days/Week','9:30 AM','10:15 AM',100001,100005,4);
+insert into Flight(FlightID, FlightCode, AircraftType, Frequency, ArrivalTime, DepartTime, DepartAirportID, DestAirportID, GateNum)
+VALUES (200004,'BA1001','Boeing 777','Daily','12:00 PM','1:00 PM',100001,100009,12);
+insert into Flight(FlightID, FlightCode, AircraftType, Frequency, ArrivalTime, DepartTime, DepartAirportID, DestAirportID, GateNum)
+VALUES (200005,'AS1001','Boeing 747-200','6 Days/Week','12:30 PM','1:15 PM',100001,100007,13);
+insert into Flight(FlightID, FlightCode, AircraftType, Frequency, ArrivalTime, DepartTime, DepartAirportID, DestAirportID, GateNum)
+VALUES (200006,'AF1001','Airbus A321','Daily','3:00 PM','3:45 PM',100002,100001,2);
+insert into Flight(FlightID, FlightCode, AircraftType, Frequency, ArrivalTime, DepartTime, DepartAirportID, DestAirportID, GateNum)
+VALUES (200007,'AI1001','Boeing 737','2 Days/Week','3:45 PM','4:30 PM',100008,100001,1);
+insert into Flight(FlightID, FlightCode, AircraftType, Frequency, ArrivalTime, DepartTime, DepartAirportID, DestAirportID, GateNum)
+VALUES (200008,'AA1002','Airbus A380','Daily','5:00 PM','5:45 PM',100006,100001,5);
+insert into Flight(FlightID, FlightCode, AircraftType, Frequency, ArrivalTime, DepartTime, DepartAirportID, DestAirportID, GateNum)
+VALUES (200009,'UA1001','Boeing 747-200','5 Days/Week','6:45 PM','7:30 PM',100002,100001,6);
+
+insert into AirLine(AirlineID, AirlineName, IATACode, Address, PhoneNumber, City, State_Province, Country, Status)
+VALUES (300001,'American Airlines','AA','1 Skyview Dr','(800)433-7300','Fort Worth','Texas','USA', 1);
+insert into AirLine(AirlineID, AirlineName, IATACode, Address, PhoneNumber, City, State_Province, Country, Status)
+VALUES (300002,'Delta','DL','1020 Cargo Service Rd','(800)221-1212','Atlanta','Georgia','USA',1);
+insert into AirLine(AirlineID, AirlineName, IATACode, Address, PhoneNumber, City, State_Province, Country, Status)
+VALUES (300003,'Emirates','EK','123 Dubai Intl Airport Rd','(800)221-1213','Dubai','Dubai','UAE',1);
+insert into AirLine(AirlineID, AirlineName, IATACode, Address, PhoneNumber, City, State_Province, Country, Status)
+VALUES (300004,'US Airways','UA','1006 USfly Rd','888-333-4444','Tempe','Arizona','USA',0);
+insert into AirLine(AirlineID, AirlineName, IATACode, Address, PhoneNumber, City, State_Province, Country, Status)
+VALUES (300005,'Alaskan Airlines','AS','19300 International Boulevard','(800)252-7522','Seatac','Washington','USA',1);
+insert into AirLine(AirlineID, AirlineName, IATACode, Address, PhoneNumber, City, State_Province, Country, Status)
+VALUES (300006,'British Airways','BA','PO Box 365 Harmondsworth, UB7 0GB','(800) 247-9297','Harmondsworth','England','UK',1);
+insert into AirLine(AirlineID, AirlineName, IATACode, Address, PhoneNumber, City, State_Province, Country, Status)
+VALUES (300007,'Air France','AF','125 W 55th St floor 2, 10019','1(800)237-2747','New York City','New York','USA',1);
+insert into AirLine(AirlineID, AirlineName, IATACode, Address, PhoneNumber, City, State_Province, Country, Status)
+VALUES (300008,'Air India','AI','27 Baba Kharak Singh Rd','1(888)634-1407','New Delhi','Delhi','India',1);
+
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('PIL101','Charles','Lindbergh','02/04/1902','Pilot',120000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('PIL102','Sully','Sullenberger','01/23/1951','Pilot',110000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('PIL103','Howard','Hughes','12/24/1905','Pilot',140000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('PIL104','Amelia','Earhart','07/24/1897','Pilot',120000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('PIL105','Fred','Noonan','04/04/1893','Pilot',100000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('PIL106','Manfred','von Richthofen','05/02/1892','Pilot',90000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('PIL107','Francis','Powers','08/17/1929','Pilot',150000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('PIL108','Chuck','Yeager','02/13/1923','Pilot',120000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('FLA101','Morena','Baccarin','06/02/1979','Flight Attendant',70000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('FLA102','Ana','de Armas','04/30/1988','Flight Attendant',70000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('FLA103','Isla','Fisher','02/03/1976','Flight Attendant',70000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('JAN101','Jerry','Jones','10/13/1942','Janitor',50000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('JAN102','Elon','Musk','06/28/1971','Janitor',52000,100001);
+insert into Employee (EmployeeID, Fname, Lname, DOB, Occupation, Salary, AirportID)
+VALUES ('JAN103','Jeff','Bezos','01/12/1964','Janitor',47000,100001);
+
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1001','Barack','Obama','1280 President Street','M','(214)767-1001',200008);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1002','Bill','Gates','640 Medina Ave','M','(214)767-1002',200005);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1003','Subhayan','Basu','800 Campbell Rd','M','(214)767-1003',200006);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1004','Donald','Trump','Mar-A-Lago','M','(214)767-1004',200002);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1005','Denzel','Washington','56 Sunset Boulevard','M','(214)767-1005',200004);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1006','Erik','Jonnson','801 Campbell Rd','M','(214)767-1006',200003);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1007','Naveen','Jindal','802 Campbell Rd','M','(214)767-1007',200001);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1008','Joe','Biden','1600 Pennsylvania Ave','M','(214)767-1008',200001);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1009','Joe','Burrow','9 Bengals Blvd','M','(214)767-1009',200002);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1010','Jamarr','Chase','1 Bengals Blvd','M','(214)767-1010',200008);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1011','Melinda','Gates','1800 Mockingbird Ave','F','(214)767-1011',200003);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1012','Allison','Cameron','1400 Princeton Street','F','(214)767-1012',200009);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1013','Charles','Guiteau','1 Garfield Ave','M','(214)767-1013',200004);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1014','Betty','Friedan','40 Mercedes Ave','F','(214)767-1014',200004);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1015','Aubrey','Graham','416 Canada Road','M','(214)767-1015',200006);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1016','Gregory','House','1500 Princeton Street','M','(214)767-1016',200006);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1017','Wendy','Torrance','12 Overlook Dr','F','(214)767-1017',200004);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1018','Rosemary','Woodhouse','480 Broadway','F','(214)767-1018',200007);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1019','Roman','Castevet','481 Broadway','M','(214)767-1019',200007);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1020','Luka','Doncic','American Airlines Center','M','(214)767-1020',200002);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1021','Gwendolyn','Brooks','1400 Club Court Drive','F','(214)767-1021',200003);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1022','Cliff','Booth','1200 Cielo Dr','M','(214)767-1022',200002);
+insert into Passenger (PassportID, Fname, Lname, Address, Sex, PhoneNumber, FlightID)
+VALUES ('PAS1023','Debby','Harry','4233 Coit Rd','F','(214)767-1023',200009);
+
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1001',200008,'PAS1001',150,'Coach','12A');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1002',200005,'PAS1002',500,'First','14B');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1003',200006,'PAS1003',380,'Business','8C');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1004',200002,'PAS1004',350,'Business','9D');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1005',200004,'PAS1005',220,'Coach','23A');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1006',200003,'PAS1006',240,'Coach','24B');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1007',200001,'PAS1007',250,'Coach','19C');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1008',200001,'PAS1008',560,'First','2A');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1009',200002,'PAS1009',400,'Business','8B');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1010',200008,'PAS1010',215,'Coach','32D');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1011',200003,'PAS1011',570,'First','2A');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1012',200009,'PAS1012',220,'Coach','16E');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1013',200004,'PAS1013',2240,'Coach','16D');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1014',200004,'PAS1014',170,'Coach','16C');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1015',200006,'PAS1015',355,'Business','4D');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1016',200006,'PAS1016',190,'Coach','17A');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1017',200004,'PAS1017',320,'Business','4C');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1018',200007,'PAS1018',545,'First','3A');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1019',200007,'PAS1019',240,'Coach','24D');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1020',200002,'PAS1020',550,'First','3B');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1021',200003,'PAS1021',405,'Business','24C');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1022',200002,'PAS1022',390,'Business','18A');
+insert into Ticket (TicketID, FlightID, PassportID, Price, ticketClass, SeatNum)
+VALUES ('TKT1023',200009,'PAS1023',515,'First','2B');
+
+insert into Luggage (LuggageID, PassportID, BaggageClaim)
+VALUES ('LUG1001', 'PAS1001',16);
+insert into Luggage (LuggageID, PassportID, BaggageClaim)
+VALUES ('LUG1002', 'PAS1003',12);
+insert into Luggage (LuggageID, PassportID, BaggageClaim)
+VALUES ('LUG1003', 'PAS1008',9);
+insert into Luggage (LuggageID, PassportID, BaggageClaim)
+VALUES ('LUG1004', 'PAS1012',5);
+insert into Luggage (LuggageID, PassportID, BaggageClaim)
+VALUES ('LUG1005', 'PAS1013',16);
+insert into Luggage (LuggageID, PassportID, BaggageClaim)
+VALUES ('LUG1006', 'PAS1015',12);
+insert into Luggage (LuggageID, PassportID, BaggageClaim)
+VALUES ('LUG1007', 'PAS1017',9);
+insert into Luggage (LuggageID, PassportID, BaggageClaim)
+VALUES ('LUG1008', 'PAS1020',5);
